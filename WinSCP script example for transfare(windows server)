@@ -1,0 +1,5 @@
+open *Your_protocol(i used sftp)*://*Your_login_user*:*Your_password_user*@*Your_server_IP*:*Your_port(i used 10022*/ -hostkey="*Your_hostkey*"
+
+put D:\*The path to the folder where file*\*Your_file_name*.vhd /*Your_backup_folder*/ -resumesupport=on
+
+exit
