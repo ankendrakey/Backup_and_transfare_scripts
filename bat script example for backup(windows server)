@@ -1,0 +1,19 @@
+chcp 1251
+@echo -------------------->> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+@echo %time% Bat start>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+@echo -------------------->> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+
+@echo %time% Copy file your_name_file* to backup folder>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+copy C:\*File folder path*\your_name_file.vhd D:\*The path to the folder where it will be copied*\ /Y>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+@echo %time% Rename file with date>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+move D:\*The path to the folder where it will be copied*\your_name_file.vhd D:\*The path to the folder where it will be copied*\old\your_name_file_%date%.vhd>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+@echo %time% Start SFTP tranfer your_name_file>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+"C:\Program Files (x86)\WinSCP\WinSCP.exe" /log="C:\*The path to the folder where the logs will for file transfate*\SFTP_%date%.txt" /ini=nul /script="C:\*The path to the script\SFTP_script.txt"
+@echo %time% End SFTP tranfer your_name_file>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+@echo %time% Deleting temp backup>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+FORFILES /P D:\*The path to the folder where it will be copied*\old /S /M *.* /D -0 /C "cmd /c del @PATH">> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+
+
+@echo %time% Bat end>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+@echo %time% ====================>> C:\*The path to the folder where the logs will be*\Bat_%date%.txt
+powershell.exe -ExecutionPolicy Bypass -File "C:\*The path to the powershell script\powershell_script_sendmail_log.ps1"
