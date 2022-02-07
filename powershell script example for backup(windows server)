@@ -1,0 +1,23 @@
+# From mail
+$From = "your_mail_login@gmail.com"
+ 
+# To mail
+$To = "your_mail_login@gmail.com"
+# Attachment folder-file
+$Attachments = 'C:\Your_log_folder\bat\*.txt', 'C:\Your_log_folder\sftp\*.txt'
+ 
+ 
+$SMTPServer = "mail server"
+$SMTPPort   = "smtp port"
+$Username   = $From
+$Password   = 'your_user_password'
+$subject    = 'subject mail - your text, example - backup finish'
+$body       = 'Your mail body text, example - Logs in attachment'
+ 
+$SecPassword = $Password | Convertto-SecureString -AsPlainText -Force
+$Credential = New-Object -TypeName System.Management.Automation.PSCredential -Argumentlist $Username,$SecPassword
+ 
+Send-MailMessage -From $From -To $To -Subject $Subject -Attachments $Attachments -Body $Body -BodyAsHtml -SmtpServer $SMTPServer -Port $SMTPPort -UseSsl -Credential $Credential
+
+Move-Item C:\Your_log_folder\bat\* -Force -Destination C:\Your_log_folder\bat\old\
+Move-Item C:\Your_log_folder\sftp\* -Force -Destination C:\Your_log_folder\sftp\old\
